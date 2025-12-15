@@ -49,6 +49,13 @@
             z-index: -1;
             opacity: 0.8;
         }
+        
+        /* Reduce canvas opacity on mobile for better performance */
+        @media (max-width: 768px) {
+            #bg-canvas {
+                opacity: 0.4;
+            }
+        }
 
         /* Floating particles */
         .particles {
@@ -224,6 +231,23 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
+        
+        /* Touch-friendly button states */
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+            .btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .btn:active {
+                transform: scale(0.98);
+                box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+            }
+        }
 
         /* 3D Profile Card */
         .profile-3d {
@@ -351,6 +375,20 @@
             box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
             border-color: var(--accent);
         }
+        
+        /* Touch-friendly card interactions */
+        @media (hover: none) and (pointer: coarse) {
+            .skill-card:hover {
+                transform: none;
+                box-shadow: none;
+                border-color: rgba(255,255,255,0.2);
+            }
+            
+            .skill-card:active {
+                transform: scale(0.98);
+                background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+            }
+        }
 
         .skill-progress {
             width: 100%;
@@ -432,6 +470,19 @@
         .project-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Touch-friendly project card interactions */
+        @media (hover: none) and (pointer: coarse) {
+            .project-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .project-card:active {
+                transform: scale(0.98);
+                background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+            }
         }
 
         .project-card h3 {
@@ -537,36 +588,439 @@
             transform: translateY(0);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(15, 15, 26, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            color: var(--accent);
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .mobile-nav a:hover {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            transform: scale(1.05);
+        }
+
+        /* Responsive Breakpoints */
+        
+        /* Large Desktop (1200px+) */
+        @media (min-width: 1200px) {
+            .hero {
+                gap: 80px;
+            }
+            
+            .hero-left h1 {
+                font-size: 4.5rem;
+            }
+            
+            .profile-card {
+                width: 350px;
+                height: 450px;
+            }
+            
+            .profile-img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+
+        /* Desktop (992px - 1199px) */
+        @media (max-width: 1199px) and (min-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr 350px;
+                gap: 50px;
+            }
+            
+            .profile-card {
+                width: 280px;
+                height: 380px;
+            }
+        }
+
+        /* Tablet Landscape (768px - 991px) */
+        @media (max-width: 991px) and (min-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 50px;
+                padding: 0 40px;
+            }
+            
+            .hero-left h1 {
+                font-size: 3rem;
+            }
+            
+            .profile-card {
+                width: 280px;
+                height: 360px;
+                margin: 0 auto;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 25px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            nav {
+                padding: 6px;
+                gap: 6px;
+            }
+            
+            nav a {
+                padding: 10px 16px;
+                font-size: 15px;
+            }
+        }
+
+        /* Tablet Portrait & Large Mobile (481px - 767px) */
+        @media (max-width: 767px) and (min-width: 481px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+            
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 40px;
+                padding: 0 30px;
             }
             
             .hero-left h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+                line-height: 1.2;
+            }
+            
+            .hero-left .subtitle {
+                font-size: 1.1rem;
             }
             
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
             }
             
             .profile-card {
-                width: 250px;
-                height: 320px;
+                width: 260px;
+                height: 340px;
+                margin: 0 auto;
+            }
+            
+            .profile-img {
+                width: 130px;
+                height: 130px;
+            }
+            
+            section {
+                padding: 80px 30px;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .skill-card {
+                padding: 20px 15px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .project-card {
+                padding: 25px;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .contact-form {
+                padding: 30px 25px;
+                margin: 0 20px;
+            }
+            
+            .social-sidebar {
+                display: none;
+            }
+        }
+
+        /* Mobile (320px - 480px) */
+        @media (max-width: 480px) {
+            .mobile-menu-toggle {
+                display: block;
+                top: 15px;
+                right: 15px;
             }
             
             nav {
-                flex-wrap: wrap;
-                padding: 5px;
+                display: none;
             }
             
-            nav a {
-                padding: 8px 15px;
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+                padding: 0 20px;
+            }
+            
+            .hero-left h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+                margin-bottom: 15px;
+            }
+            
+            .hero-left .subtitle {
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+            
+            .profile-card {
+                width: 220px;
+                height: 300px;
+                margin: 0 auto;
+            }
+            
+            .profile-img {
+                width: 110px;
+                height: 110px;
+            }
+            
+            section {
+                padding: 60px 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .skill-card {
+                padding: 18px 15px;
+            }
+            
+            .skill-card h3 {
+                font-size: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .project-card {
+                padding: 20px;
+            }
+            
+            .project-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .tech-tag {
+                font-size: 0.75rem;
+                padding: 3px 10px;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: 12px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .contact-form {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+            
+            .submit-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .social-sidebar {
+                display: none;
+            }
+            
+            footer {
+                padding: 30px 20px;
                 font-size: 14px;
+            }
+        }
+
+        /* Extra Small Mobile (max 320px) */
+        @media (max-width: 320px) {
+            .hero-left h1 {
+                font-size: 1.9rem;
+            }
+            
+            .profile-card {
+                width: 200px;
+                height: 280px;
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            section {
+                padding: 50px 15px;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .contact-form {
+                margin: 0 5px;
+                padding: 20px 15px;
+            }
+        }
+
+        /* Landscape Mobile Orientation */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                min-height: auto;
+                padding: 100px 0 50px;
+            }
+            
+            .hero {
+                gap: 30px;
+            }
+            
+            .hero-left h1 {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+            
+            .hero-left .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+            
+            .profile-card {
+                width: 200px;
+                height: 250px;
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            section {
+                padding: 50px 20px;
             }
         }
 
@@ -665,41 +1119,7 @@
             margin-top: 5px;
         }
 
-        @media (max-width: 768px) {
-            .social-sidebar {
-                display: none;
-            }
-            
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-            
-            .hero-left h1 {
-                font-size: 2.5rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .profile-card {
-                width: 250px;
-                height: 320px;
-            }
-            
-            nav {
-                flex-wrap: wrap;
-                padding: 5px;
-            }
-            
-            nav a {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-        }
+
 
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -739,14 +1159,32 @@
         </a>
     </div>
 
-    <!-- Navigation -->
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Desktop Navigation -->
     <nav>
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-    </nav>
+    </nav>""
 
     <!-- Header -->
     <header id="home">
@@ -782,24 +1220,7 @@
             </p>
         </div>
         
-        <div class="about-stats fade-in">
-            <div class="stat-card">
-                <span class="stat-number">2+</span>
-                <span class="stat-label">Years Experience</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">15+</span>
-                <span class="stat-label">Projects Completed</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">8+</span>
-                <span class="stat-label">Technologies</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number">100%</span>
-                <span class="stat-label">Client Satisfaction</span>
-            </div>
-        </div>
+
     </section>
 
     <!-- Skills Section -->
@@ -896,7 +1317,7 @@
                     <span class="tech-tag">JavaScript</span>
                     <span class="tech-tag">3D Animations</span>
                 </div>
-                <a href="https://github.com/divyaredii/portfolio" target="_blank" class="project-link">
+                <a href="#" onclick="window.open(window.location.origin + window.location.pathname, '_blank')" class="project-link">
                     View Project →
                 </a>
             </div>
@@ -943,7 +1364,8 @@
         window.addEventListener('resize', resizeCanvas);
         
         const particles = [];
-        const particleCount = 100;
+        // Reduce particle count on mobile for better performance
+        const particleCount = window.innerWidth <= 768 ? 30 : 100;
         
         class Particle {
             constructor() {
@@ -1007,8 +1429,10 @@
         // Floating particles
         function createFloatingParticles() {
             const particlesContainer = document.getElementById('particles');
+            // Reduce floating particles on mobile
+            const floatingParticleCount = window.innerWidth <= 768 ? 15 : 50;
             
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < floatingParticleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
@@ -1142,18 +1566,80 @@
             }, 1000);
         });
         
-        // Mouse parallax effect
-        document.addEventListener('mousemove', (e) => {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        
+        if (mobileMenuToggle && mobileNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+                
+                // Toggle hamburger to X
+                const svg = mobileMenuToggle.querySelector('svg');
+                if (mobileNav.classList.contains('active')) {
+                    svg.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+                } else {
+                    svg.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+                }
+            });
             
-            const profileCard = document.querySelector('.profile-card');
-            if (profileCard) {
-                const rotateX = (mouseY - 0.5) * 10;
-                const rotateY = (mouseX - 0.5) * 10;
-                profileCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('.mobile-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    const svg = mobileMenuToggle.querySelector('svg');
+                    svg.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                    mobileNav.classList.remove('active');
+                    const svg = mobileMenuToggle.querySelector('svg');
+                    svg.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+                }
+            });
+        }
+        
+        // Mouse parallax effect (disabled on mobile for performance)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                const profileCard = document.querySelector('.profile-card');
+                if (profileCard) {
+                    const rotateX = (mouseY - 0.5) * 10;
+                    const rotateY = (mouseX - 0.5) * 10;
+                    profileCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                }
+            });
+        }
+        
+        // Optimize animations for mobile
+        function optimizeForMobile() {
+            const isMobile = window.innerWidth <= 768;
+            const particles = document.querySelectorAll('.particle');
+            
+            if (isMobile) {
+                // Reduce particle count on mobile
+                particles.forEach((particle, index) => {
+                    if (index > 20) {
+                        particle.style.display = 'none';
+                    }
+                });
+                
+                // Reduce canvas particle count
+                if (particles.length > 50) {
+                    particles.splice(50);
+                }
             }
-        });
+        }
+        
+        // Call optimization on load and resize
+        optimizeForMobile();
+        window.addEventListener('resize', optimizeForMobile);
     </script>
 </body>
 </html>
